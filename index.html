@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto Js</title>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+  <div class="wrapper">
+    <header class="header-mobile">
+      <h1 class="logo">🗺 Paises del mundo 🌍</h1>
+      <button class="open-menu" id="open-menu">Menu</button>
+    </header>
+    <aside>
+      <button class="close-menu" id="close-menu">Cerrar</button>
+      <header>
+        <h1 class="logo">🗺 Paises del mundo 🌍</h1>
+      </header>
+      <nav>
+        <ul class="menu">
+          <li>
+            <button class="boton-menu boton-categoria" id="btn-aleatorio">
+              Aleatorio
+            </button>
+          </li>
+          <li>
+            <button class="boton-menu boton-categoria" id="btn-alfabetico">
+              Alfabético
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <footer>
+        <p class="texto-footer">© 2025 Reto Js</p>
+      </footer>
+    </aside>
+
+    <main>
+      <div id="Content">
+        <h2 class="titulo-principal" id="titulo-principal">
+          Que comience la aventura 🏁
+        </h2>
+
+        <div id="MainContent">
+          <div id="contenedor-productos" class="countries-grid"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <section class="modal">
+    <div class="modal__container">
+      <img src="images/modal.svg" class="modal__img" id="continent-image" alt="Imagen del continente">
+      <h2 class="modal__title">Título del país</h2>
+      <p class="modal__paragraph">
+        Aquí irá capital, población y continente.
+      </p>
+      <a href="#" class="modal__close">Cerrar Modal</a>
+    </div>
+  </section>
+
+  <script src="./js/countries.js"></script>
+  <script>
+    const labelsAleatorio = [
+      "¡Sorpresa! 🎲",
+      "Azar Mágico 🎲",
+      "¿Quién sale primero? 🎲"
+    ];
+    const labelsAlfabetico = [
+      "A-B-C Mágico 🔤",
+      "¡Letras Geniales! 🔤",
+      "Alfabeto Sorpresa 🔤"
+    ];
+
+    function nombreAleatorio(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    const btnAleatorio = document.getElementById("btn-aleatorio");
+    btnAleatorio.textContent = nombreAleatorio(labelsAleatorio);
+
+    const btnAlfabetico = document.getElementById("btn-alfabetico");
+    btnAlfabetico.textContent = nombreAleatorio(labelsAlfabetico);
+
+    const slicedCountries = countriesData.slice(0, 12);
+    const container = document.getElementById('contenedor-productos');
+    const tituloPrincipal = document.getElementById('titulo-principal');
+
+    const continentToSvg = {
+      "Africa": "africa.svg",
+      "Antarctica": "Antarctica.svg",
+      "Asia": "asia.svg",
+      "Europe": "europe.svg",
+      "Oceania": "oceania.svg",
+      "North America": "america.svg",
+      "South America": "america.svg"
+    };
+
+    function renderCountries(array) {
+      container.innerHTML = '';
+      array.forEach(country => {
+        const name = country.name?.common || 'N/A';
+        const capital = country.capital?.[0] || 'N/A';
+        const population = country.population?.toLocaleString() || 'N/A';
+
+        const continentsArr = country.continents || [];
+        const mainContinent = continentsArr[0] || 'Unknown';
+
+        const countryDiv = document.createElement('div');
+        countryDiv.classList.add('country-item');
+
+        countryDiv.innerHTML = `<h2>${name}</h2>`;
+        countryDiv.dataset.countryName = name;
+        countryDiv.dataset.countryCapital = capital;
+        countryDiv.dataset.countryPopulation = population;
+        countryDiv.dataset.countryContinent = mainContinent;
+
+        container.appendChild(countryDiv);
+      });
+    }
+    renderCountries(slicedCountries);
+
+    btnAleatorio.addEventListener('click', () => {
+      tituloPrincipal.textContent = mensajeAleatorioAleatorio();
+      shuffleArray(slicedCountries);
+      renderCountries(slicedCountries);
+    });
+
+    btnAlfabetico.addEventListener('click', () => {
+      tituloPrincipal.textContent = mensajeAleatorioAlfabetico();
+      slicedCountries.sort((a, b) => {
+        const nameA = a.name?.common?.toLowerCase() || '';
+        const nameB = b.name?.common?.toLowerCase() || '';
+        return nameA.localeCompare(nameB);
+      });
+      renderCountries(slicedCountries);
+    });
+
+    function mensajeAleatorioAleatorio() {
+      const opciones = [
+        "¡El azar te sorprende! 😲",
+        "¡Sorpresa aleatoria, prepárate! 🤪",
+        "¡Azar en acción, disfruta! 😵",
+        "¡Muchísima gente, increíble! 😮",
+        "¡Multitud en acción, wow! 😲",
+        "¡Población máxima, prepárate! 🚀"
+      ];
+      return opciones[Math.floor(Math.random() * opciones.length)];
+    }
+    function mensajeAleatorioAlfabetico() {
+      const opciones = [
+        "¡Paises en orden, genial! 🔠",
+        "¡Alfabeto mágico, vamos! ✨",
+        "¡Orden alfabético, descubre más! 📚"
+      ];
+      return opciones[Math.floor(Math.random() * opciones.length)];
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    const modal = document.querySelector('.modal');
+    const closeModal = document.querySelector('.modal__close');
+    const modalTitle = document.querySelector('.modal__title');
+    const modalParagraph = document.querySelector('.modal__paragraph');
+    const continentImg = document.getElementById('continent-image');
+
+    container.addEventListener('click', (e) => {
+      const card = e.target.closest('.country-item');
+      if (card) {
+        e.preventDefault();
+
+        const name = card.dataset.countryName;
+        const capital = card.dataset.countryCapital;
+        const population = card.dataset.countryPopulation;
+        const continent = card.dataset.countryContinent;
+
+        const svgFile = continentToSvg[continent] || 'modal.svg';
+
+        modalTitle.textContent = name;
+        modalParagraph.innerHTML = `
+          <strong>Capital:</strong> ${capital}<br>
+          <strong>Población:</strong> ${population}<br>
+          <strong>Continente:</strong> ${continent}
+        `;
+        continentImg.src = `images/${svgFile}`;
+
+        modal.classList.add('modal--show');
+      }
+    });
+
+    closeModal.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.classList.remove('modal--show');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('modal--show');
+      }
+    });
+  </script>
+</body>
+</html>

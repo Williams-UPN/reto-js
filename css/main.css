@@ -1,0 +1,279 @@
+:root {
+  /* Definimos variables de color para centralizar los cambios de tema */
+  --clr-main: #4b33a8;
+  --clr-main-light: #785ce9;
+  --clr-white: #ececec;
+  --clr-gray: #e2e2e2;
+  --clr-red: #961818;
+}
+
+/* Reset global para quitar márgenes y paddings por defecto y establecer la fuente */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+/* Quitamos el estilo por defecto de listas y enlaces */
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Layout principal: dividimos la pantalla en dos columnas, una para el menú y otra para el contenido */
+.wrapper {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  min-height: 100vh;
+  background-color: var(--clr-main);
+}
+
+/* Estilos para el header en móvil, inicialmente oculto y que se activa con media queries */
+.header-mobile {
+  display: none;
+  padding: 1rem;
+  background-color: var(--clr-white);
+  justify-content: space-between;
+  align-items: center;
+}
+.header-mobile .logo {
+  color: var(--clr-main);
+}
+
+/* Botón para abrir el menú: simple, sin borde, y con un tamaño grande para destacar en móvil */
+.open-menu {
+  background-color: transparent;
+  border: 0;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--clr-main);
+}
+
+/* Menú lateral: se organiza verticalmente y usa el color principal para fondo y blanco para el texto */
+aside {
+  background-color: var(--clr-main);
+  color: var(--clr-white);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Botón para cerrar el menú, posicionado arriba a la derecha y oculto por defecto */
+.close-menu {
+  display: none;
+  background-color: transparent;
+  border: 0;
+  font-size: 2rem;
+  color: var(--clr-white);
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+/* El logo se destaca con un tamaño mayor y en negrita */
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Menú de opciones en el sidebar, con separación entre botones */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Estilo de los botones del menú: sin fondo, con transición al pasar el ratón para un efecto visual agradable */
+.boton-menu {
+  background-color: transparent;
+  border: 0;
+  color: var(--clr-white);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 1rem;
+  text-align: left;
+  width: 100%;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s;
+}
+.boton-menu:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Área principal de contenido: fondo blanco, márgenes, padding y una sombra para darle profundidad */
+main {
+  background-color: var(--clr-white);
+  margin: 1rem;
+  margin-left: 0;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Título principal con el color del tema y un buen margen inferior */
+.titulo-principal {
+  color: var(--clr-main);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+/* Cuadrícula para mostrar los países de forma responsiva */
+.countries-grid {
+  display: grid;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+/* Tarjetas de país: borde, sombra y animación sutil al interactuar */
+.country-item {
+  border: 3px solid #ddd;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0 3px 0 #ccc, 0 5px 10px rgba(0, 0, 0, 0.1);
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.country-item:hover {
+  box-shadow: 0 3px 0 #bbb, 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+.country-item:active {
+  transform: scale(0.97);
+}
+.country-item h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* Modal: capa superpuesta para centrar la atención en la información del país */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #111111bd;
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s 0.9s;
+  --transform: translateY(-100vh);
+  --transition: transform 0.8s;
+}
+.modal--show {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.6s;
+  --transform: translateY(0);
+  --transition: transform 0.8s 0.8s;
+}
+
+/* Contenedor interno del modal: centrado, con padding generoso y una transición para el efecto de aparición */
+.modal__container {
+  margin: auto;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90%;
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 3em 2.5em;
+  display: grid;
+  gap: 1em;
+  place-items: center;
+  transform: var(--transform);
+  transition: var(--transition);
+}
+
+/* Estilos para el contenido del modal: título y párrafo */
+.modal__title {
+  font-size: 2.5rem;
+}
+.modal__paragraph {
+  margin-bottom: 10px;
+}
+
+/* Imagen dentro del modal, que se adapta al tamaño de la ventana */
+.modal__img {
+  width: 90%;
+  max-width: 300px;
+}
+
+/* Botón para cerrar el modal, con un efecto de cambio de color al pasar el ratón */
+.modal__close {
+  text-decoration: none;
+  color: #fff;
+  background-color: #F26250;
+  padding: 1em 3em;
+  border: 1px solid;
+  border-radius: 6px;
+  display: inline-block;
+  font-weight: 300;
+  transition: background-color 0.3s;
+}
+.modal__close:hover {
+  color: #F26250;
+  background-color: #fff;
+}
+
+/* Adaptaciones para dispositivos con pantallas hasta 768px */
+@media (max-width: 768px) {
+  /* Convertimos el layout en columna para móviles */
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Mostramos el header móvil */
+  .header-mobile {
+    display: flex;
+  }
+  /* El menú lateral se oculta fuera de la vista hasta que se active */
+  aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+    padding-top: 4rem;
+  }
+  /* Clase para hacer visible el menú lateral en móvil */
+  .aside-visible {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  /* Se muestra el botón para cerrar el menú en móvil */
+  .close-menu {
+    display: block;
+  }
+  /* Ajustes en el área principal para dispositivos móviles */
+  main {
+    margin: 1rem;
+    margin-top: 0;
+    padding: 1rem;
+  }
+}
+
+/* En pantallas muy pequeñas (hasta 576px) se fuerza a que la cuadrícula tenga una sola columna */
+@media (max-width: 576px) {
+  .countries-grid {
+    grid-template-columns: 1fr;
+  }
+}

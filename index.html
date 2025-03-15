@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reto Js</title>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Header móvil: muestra el logo y el botón "Menu" para abrir el menú lateral -->
+    <header class="header-mobile">
+      <h1 class="logo">🗺 Paises del mundo 🌍</h1>
+      <button class="open-menu" id="open-menu">Menu</button>
+    </header>
+
+    <!-- Menú lateral: contiene las opciones para mostrar países de forma aleatoria o alfabética -->
+    <aside>
+      <!-- Se ha comentado el botón "Cerrar" para que el menú se cierre automáticamente al seleccionar una opción -->
+      <!-- <button class="close-menu" id="close-menu">Cerrar</button> -->
+      <header>
+        <h1 class="logo">🗺 Paises del mundo 🌍</h1>
+      </header>
+      <nav>
+        <ul class="menu">
+          <!-- Botón para activar la función "Aleatorio" -->
+          <li>
+            <button class="boton-menu boton-categoria" id="btn-aleatorio">
+              Aleatorio
+            </button>
+          </li>
+          <!-- Botón para activar la función "Alfabético" -->
+          <li>
+            <button class="boton-menu boton-categoria" id="btn-alfabetico">
+              Alfabético
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <footer>
+        <p class="texto-footer">© 2025 Reto Js</p>
+      </footer>
+    </aside>
+
+    <!-- Área principal donde se muestran los países -->
+    <main>
+      <div id="Content">
+        <!-- Título principal que se actualiza según la función elegida -->
+        <h2 class="titulo-principal" id="titulo-principal">
+          Que comience la aventura 🏁
+        </h2>
+        <div id="MainContent">
+          <!-- Contenedor dinámico para renderizar la cuadrícula de países -->
+          <div id="contenedor-productos" class="countries-grid"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal: muestra detalles del país seleccionado (capital, población, continente) -->
+  <section class="modal">
+    <div class="modal__container">
+      <img src="images/modal.svg" class="modal__img" id="continent-image" alt="Imagen del continente">
+      <h2 class="modal__title">Título del país</h2>
+      <p class="modal__paragraph">
+        Aquí irá capital, población y continente.
+      </p>
+      <a href="#" class="modal__close">Cerrar</a>
+    </div>
+  </section>
+
+  <!-- Carga de scripts -->
+  <!-- countries.js: contiene los datos de los países -->
+  <script src="./js/countries.js"></script>
+  <!-- mainfunction.js: incluye la lógica principal para:
+         • Abrir el menú (al pulsar "Menu")
+         • Ejecutar las funciones "Aleatorio" y "Alfabético" al hacer clic en sus botones
+         • Renderizar los países y actualizar el contenido dinámicamente
+         • Mostrar el modal con información detallada del país seleccionado -->
+  <script src="./js/mainfunction.js"></script>
+</body>
+</html>

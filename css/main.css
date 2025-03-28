@@ -120,8 +120,8 @@ main {
 /* Título principal con el color del tema y un buen margen inferior */
 .titulo-principal {
   color: var(--clr-main);
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
+  margin-bottom: 8rem;
+  font-size: 2.8rem;
 }
 
 /* Cuadrícula para mostrar los países de forma responsiva */
@@ -130,7 +130,7 @@ main {
   gap: 1rem;
   max-width: 1200px;
   margin: 0 auto;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
 /* Tarjetas de país: borde, sombra y animación sutil al interactuar */
@@ -139,7 +139,7 @@ main {
   border-radius: 15px;
   background-color: #fff;
   box-shadow: 0 3px 0 #ccc, 0 5px 10px rgba(0, 0, 0, 0.1);
-  height: 120px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,7 +154,7 @@ main {
 }
 .country-item h2 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   text-align: center;
 }
 

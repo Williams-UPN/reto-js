@@ -120,7 +120,7 @@ main {
 /* Título principal con el color del tema y un buen margen inferior */
 .titulo-principal {
   color: var(--clr-main);
-  margin-bottom: 8rem;
+  margin-bottom: 7.5rem;
   font-size: 2.8rem;
 }
 

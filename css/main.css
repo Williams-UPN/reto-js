@@ -130,7 +130,7 @@ main {
   gap: 1rem;
   max-width: 1200px;
   margin: 0 auto;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
 /* Tarjetas de país: borde, sombra y animación sutil al interactuar */
